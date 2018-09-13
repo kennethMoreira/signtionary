@@ -1,0 +1,146 @@
+<h2>Lista de países: </h2>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPais">
+    Agregar País
+  </button>
+  <div>
+      <input placeholder="País a buscar" [(ngModel)]="buscarpais">
+    <button (click)="busqueda()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBuscarPais"> Buscar</button>
+  </div>
+  
+ 
+  <!-- Modal Editar -->
+  <div class="modal fade" id="modalEditarPais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <input placeholder="nombrePaisEditado" [(ngModel)]="nombrePaisEditado">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button (click) ="patch()" type="button" class="btn btn-primary" data-dismiss="modal">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal Agregar -->
+<div class="modal fade" id="modalAgregarPais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar país </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <input placeholder="Nombre del país" [(ngModel)]="nombrePais">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button (click) ="agregar()" type="button" class="btn btn-primary" data-dismiss="modal">Agregar país</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal Búsqueda -->
+   <div class="modal fade" id="modalBuscarPais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Resultado de la búsqueda </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      
+                      <th scope="col">id</th>
+                      <th scope="col">Name</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let country of countriesBusqueda">
+                      <td>{{country.id}}</td>
+                      <td>{{country.name}}</td>
+                      <td><button (click) ="editar(country)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarPais" data-dismiss="modal">
+                          Editar
+                        </button></td>
+                      <td><button (click)="eliminar(country)" class="btn btn-danger"data-dismiss="modal">Eliminar </button></td>
+                      
+                    </tr>
+                
+                    
+                  </tbody>
+                  
+                </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Listar países -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let country of countries">
+      <td>{{country.id}}</td>
+      <td>{{country.name}}</td>
+      <td><button (click) ="editar(country)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarPais">
+          Editar
+        </button></td>
+      <td><button (click)="eliminar(country)" class="btn btn-danger">Eliminar</button></td>
+      
+    </tr>
+
+    
+  </tbody>
+  <tfoot>
+      <tr>
+        
+      <ul class="pagination ">
+        <li class="page-item">
+            <a button (click)="AnteriorPagina()"class="page-link"  > Página Anterior </a>
+        </li>
+        <li class="page-item disabled">
+            <a button class="page-link"  > {{paginaAnterior}} </a>
+        </li>
+        <li class="page-item active">
+            <a button class="page-link"  > {{paginaActual}} </a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link"  > {{paginaSiguiente}} </a>
+        </li>
+        <li>
+            <a button (click)="SiguientePagina()"class="page-link "  > Página siguiente </a>
+        </li>
+      </ul>
+      
+      </tr>
+    </tfoot>
+
+</table>

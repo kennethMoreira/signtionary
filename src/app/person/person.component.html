@@ -1,0 +1,213 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregar">
+    Add person
+  </button>
+  
+  <div>
+    <input placeholder="Search person" [(ngModel)]="buscar">
+  <button (click)="busqueda()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBuscar"> Search</button>
+  </div>
+  <!-- Listar  -->
+  <table class="table-sm table-striped">
+    <thead>
+      <tr>
+        
+        
+        <th scope="col">id</th>
+        <th scope="col">username</th>
+        <th scope="col">first_name</th>
+        <th scope="col">last_name</th>
+        <th scope="col">birthyear</th>
+        <th scope="col">email</th>
+        <th scope="col">gender</th>
+        <th scope="col">phone_num</th>
+        <th scope="col">country_id</th>
+        <th scope="col">role_id</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of objectArray">
+        <td>{{ element.id }}</td>
+        <td>{{ element.username }}</td>
+        <td>{{ element.first_name }}</td>
+        <td>{{ element.last_name }}</td>
+        <td>{{ element.birthyear }}</td>
+        <td>{{ element.email }}</td>
+        <td>{{ element.gender }}</td>
+        <td>{{ element.phone_num }}</td>
+        <td>{{ element.country_id }}</td>
+        <td>{{ element.role_id }}</td>
+        
+        <td><button (click) ="editar(element)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(element)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    <tfoot>
+        <tr>
+          
+        <ul class="pagination ">
+          <li class="page-item">
+              <a button (click)="AnteriorPagina()"class="page-link"  > Página Anterior </a>
+          </li>
+          <li class="page-item disabled">
+              <a button class="page-link"  > {{paginaAnterior}} </a>
+          </li>
+          <li class="page-item active">
+              <a button class="page-link"  > {{paginaActual}} </a>
+          </li>
+          <li class="page-item disabled">
+              <a class="page-link"  > {{paginaSiguiente}} </a>
+          </li>
+          <li>
+              <a button (click)="SiguientePagina()"class="page-link "  > Página siguiente </a>
+          </li>
+        </ul>
+        
+        </tr>
+      </tfoot>
+  
+  </table>
+  
+  <!-- Modal Editar -->
+  <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <input placeholder="Edited_username" [(ngModel)]="Edited_username">
+          <input placeholder="Edited_first_name" [(ngModel)]="Edited_first_name">
+          <input placeholder="Edited_last_name" [(ngModel)]="Edited_last_name">
+          <input placeholder="Edited_birthyear" [(ngModel)]="Edited_birthyear">
+          <input placeholder="Edited_email" [(ngModel)]="Edited_email">
+          <input placeholder="Edited_gender" [(ngModel)]="Edited_gender">
+          <input placeholder="Edited_phone_num" [(ngModel)]="Edited_phone_num">
+          <input placeholder="Edited_country_id" [(ngModel)]="Edited_country_id">
+          <input placeholder="Edited_role_id" [(ngModel)]="Edited_role_id">
+          
+
+  
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button (click) ="patch()" type="button" class="btn btn-primary" data-dismiss="modal">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Agregar -->
+  <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar asset </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        
+        <input placeholder="Ingresa username"    [(ngModel)]="username">
+        <input placeholder="Ingresa password"    [(ngModel)]="password">
+        <input placeholder="Ingresa first_name"    [(ngModel)]="first_name">
+        <input placeholder="Ingresa last_name"    [(ngModel)]="last_name">
+        <input placeholder="Ingresa birthyear"    [(ngModel)]="birthyear">
+        <input placeholder="Ingresa email"    [(ngModel)]="email">
+        <input placeholder="Ingresa gender"    [(ngModel)]="gender">
+        <input placeholder="Ingresa phone_num"    [(ngModel)]="phone_num">
+        <input placeholder="Ingresa country_id"    [(ngModel)]="country_id">
+        <input placeholder="Ingresa role_id"    [(ngModel)]="role_id">
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button (click) ="agregar()" type="button" class="btn btn-primary" data-dismiss="modal">Add person</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Modal Búsqueda -->
+   <div class="modal fade" id="modalBuscar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Resultado de la búsqueda </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body  modal-lg">
+          <div class="table-responsive">
+          <table class="table-sm table-striped">
+            <thead>
+              <tr>
+                
+                
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let element of objectArray">
+                <td>{{ element.id }}</td>
+                <td>{{ element.name }}</td>
+                
+                <td><button (click) ="editar(element)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" data-dismiss="modal">
+                    Editar
+                  </button></td>
+                <td><button (click)="eliminar(element)" class="btn btn-danger">Eliminar</button></td>
+                
+              </tr>
+          
+              
+            </tbody>
+            <tfoot>
+                <tr>
+                  
+                <ul class="pagination ">
+                  <li class="page-item">
+                      <a button (click)="AnteriorPagina()"class="page-link"  > Página Anterior </a>
+                  </li>
+                  <li class="page-item disabled">
+                      <a button class="page-link"  > {{paginaAnterior}} </a>
+                  </li>
+                  <li class="page-item active">
+                      <a button class="page-link"  > {{paginaActual}} </a>
+                  </li>
+                  <li class="page-item disabled">
+                      <a class="page-link"  > {{paginaSiguiente}} </a>
+                  </li>
+                  <li>
+                      <a button (click)="SiguientePagina()"class="page-link "  > Página siguiente </a>
+                  </li>
+                </ul>
+                
+                </tr>
+              </tfoot>
+          
+          </table>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  

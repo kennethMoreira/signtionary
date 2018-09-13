@@ -1,0 +1,215 @@
+
+<div class=" row">
+
+<div class=".col-md-4">
+  
+  <nav *ngFor="let tablas of tablas " class="navbar navbar-expand-lg navbar-light bg-light" style="margin-left:25px;">
+
+      <button  class="btn bg-light" (click)="getTabla(tablas.resource)"> {{tablas.resource}}</button>
+      
+      
+    </nav>
+
+</div> 
+<div class=".col-md-8">
+
+    
+
+   
+
+  <!-- Listar objetos -->
+
+   
+
+<table class="table table-striped">
+    
+    <tbody *ngIf="tablaActual =='asset' || tablaActual =='country' ">
+      <tr *ngFor="let items of objeto">
+        <td>{{items.id}}</td>
+        
+        <td >{{items.name}}</td>
+        
+        <td><button (click) ="editar(items)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTabla">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(items)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    <tbody *ngIf="tablaActual =='people' ">
+      <tr *ngFor="let items of objeto">
+        <td>{{items.id}}</td>
+        
+        <td >{{items.name}}</td>
+        <td >{{items.last_name}}</td>
+        <td >{{items.identification_number}}</td>
+        <td >{{items.adress}}</td>
+        <td >{{items.contact_number}}</td>
+        
+        <td><button (click) ="editar(items)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTabla">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(items)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    <tbody *ngIf="tablaActual =='person' ">
+      <tr *ngFor="let items of objeto">
+        <td>{{items.id}}</td>
+        
+        <td >{{items.username}}</td>
+        <td >{{items.password}}</td>
+        <td >{{items.first_name}}</td>
+        <td >{{items.last_name}}</td>
+        <td >{{items.birthyear}}</td>
+        <td >{{items.email}}</td>
+        <td >{{items.gender}}</td>
+        <td >{{items.phone_num}}</td>
+        <td >{{items.country_id}}</td>
+        <td >{{items.role_id}}</td>
+          
+        
+        
+        <td><button (click) ="editar(items)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTabla">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(items)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    <tbody *ngIf="tablaActual =='request' ">
+      <tr *ngFor="let items of objeto">
+        <td>{{items.id}}</td>
+        
+        <td >{{items.sign_text}}</td>
+        <td >{{items.url}}</td>
+        <td >{{items.status}}</td>
+        <td >{{items.observations}}</td>
+        <td >{{items.sign_set_id}}</td>
+        <td >{{items.person_id}}</td>
+        
+        
+        <td><button (click) ="editar(items)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTabla">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(items)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    <tbody *ngIf="tablaActual =='role' ">
+      <tr *ngFor="let items of objeto">
+        <td>{{items.id}}</td>
+        
+        <td >{{items.name}}</td>
+        <td >{{items.description}}</td>
+       
+        
+        
+        <td><button (click) ="editar(items)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTabla">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(items)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    <tbody *ngIf="tablaActual =='sign_set' ">
+      <tr *ngFor="let items of objeto">
+        <td>{{items.id}}</td>
+        
+        <td >{{items.name}}</td>
+        <td >{{items.description}}</td>
+        
+        
+        <td><button (click) ="editar(items)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTabla">
+            Editar
+          </button></td>
+        <td><button (click)="eliminar(items)" class="btn btn-danger">Eliminar</button></td>
+        
+      </tr>
+  
+      
+    </tbody>
+    
+    <tfoot>
+        <tr>
+          
+        <ul class="pagination ">
+          <li class="page-item">
+              <a button (click)="AnteriorPagina()"class="page-link"  > Página Anterior </a>
+          </li>
+          <li class="page-item disabled">
+              <a button class="page-link"  > {{paginaAnterior}} </a>
+          </li>
+          <li class="page-item active">
+              <a button class="page-link"  > {{paginaActual}} </a>
+          </li>
+          <li class="page-item disabled">
+              <a class="page-link"  > {{paginaSiguiente}} </a>
+          </li>
+          <li>
+              <a button (click)="SiguientePagina()"class="page-link "  > Página siguiente </a>
+          </li>
+        </ul>
+        
+        </tr>
+      </tfoot>
+  
+  </table>
+  
+
+</div>
+</div>
+
+
+  <!-- Modal Editar -->
+  <div class="modal fade" id="modalEditarTabla" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <input placeholder="nombrePaisEditado" [(ngModel)]="nombrePaisEditado">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button (click) ="patch()" type="button" class="btn btn-primary" data-dismiss="modal">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Modal Agregar -->
+  <div class="modal fade" id="modalAgregarPais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar país </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <input placeholder="Nombre del país" [(ngModel)]="nombrePais">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button (click) ="agregar()" type="button" class="btn btn-primary" data-dismiss="modal">Agregar país</button>
+          </div>
+        </div>
+      </div>
+    </div>
